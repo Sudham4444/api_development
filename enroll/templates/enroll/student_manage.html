@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'enroll/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>Base Class-Based View ModelForm CRUD Project</h1>
+
+        <!-- Sections for Form and List -->
+        <div class="row">
+            <div class="col-md-5">
+                <section class="form-section">
+                    <h2>Add New Student</h2>
+                    <form method="post" action="{% url 'student_add' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.name.id_for_label }}">Name:</label>
+                            {{ form.name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}">Email:</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.password.id_for_label }}">Password:</label>
+                            {{ form.password }}
+                        </div>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-md-7">
+                <section class="list-section">
+                    <h2>Show Student Information</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                                <tr>
+                                    <td>{{ student.id }}</td>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.email }}</td>
+                                    <td>{{ student.password }}</td>
+                                    <td>
+                                        <a href="{% url 'student_edit' student.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{% url 'student_delete' student.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+   

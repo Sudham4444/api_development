@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'enroll/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Student Information</h1>
+
+        <section class="form-section">
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Name:</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password:</label>
+                    {{ form.password }}
+                </div>
+                <button type="submit" class="btn btn-success">{% if form.instance.pk %}Update{% else %}Add{% endif %}</button>
+            </form>
+            <a href="{% url 'student_list' %}" class="btn btn-primary mt-3">Back to Home</a>
+        </section>
+    </div>
+</body>
+</html>
